@@ -11,7 +11,7 @@ public class ArrayTasks {
      * Return a String[] array that will list all the seasons of the year, starting with winter.
      */
     public String[] seasonsArray() {
-        return new String[]{"winter", "spring", "summer", "fall"};
+        return new String[]{"winter", "spring", "summer", "autumn"};
 
     }
 
@@ -125,40 +125,30 @@ public class ArrayTasks {
      * arr = [[5, 4], [7]]       -> [[7], [4, 5]]
      */
     public int[][] sortRaggedArray(int[][] arr) {
-        int[][] result = new int[arr.length][];
-        int[] lengths = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            lengths[i] = arr[i].length;
-        }
-        // Sort the lengths in ascending order
-        for (int i = 0; i < lengths.length - 1; i++) {
-            for (int j = i + 1; j < lengths.length; j++) {
-                if (lengths[i] > lengths[j]) {
-                    int tempLength = lengths[i];
-                    lengths[i] = lengths[j];
-                    lengths[j] = tempLength;
-                    int[] tempArray = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = tempArray;
+        // Sort the incoming one-dimensional arrays in ascending order of their length
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j].length > arr[j + 1].length) {
+                    int[] temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
             }
         }
+
         // Sort the elements within each array in ascending order
         for (int i = 0; i < arr.length; i++) {
-            result[i] = new int[arr[i].length];
-            for (int j = 0; j < arr[i].length; j++) {
-                result[i][j] = arr[i][j];
-            }
-            for (int j = 0; j < result[i].length - 1; j++) {
-                for (int k = j + 1; k < result[i].length; k++) {
-                    if (result[i][j] > result[i][k]) {
-                        int temp = result[i][j];
-                        result[i][j] = result[i][k];
-                        result[i][k] = temp;
+            for (int j = 0; j < arr[i].length - 1; j++) {
+                for (int k = 0; k < arr[i].length - j - 1; k++) {
+                    if (arr[i][k] > arr[i][k + 1]) {
+                        int temp = arr[i][k];
+                        arr[i][k] = arr[i][k + 1];
+                        arr[i][k + 1] = temp;
                     }
                 }
             }
         }
-        return result;
+
+        return arr;
     }
 }
